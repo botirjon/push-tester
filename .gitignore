@@ -1,0 +1,19 @@
+# Build
+build/
+DerivedData/
+
+# Xcode
+*.xcuserstate
+*.xcworkspace
+xcuserdata/
+*.xcscmblueprint
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+*.swp
+*~

@@ -20,6 +20,13 @@ A native macOS application for testing Apple Push Notification Service (APNs). E
 
 ## Installation
 
+### Download DMG (Recommended)
+
+1. Download the latest DMG from [Releases](https://github.com/botirjon/PushTester/releases)
+2. Open the DMG file
+3. Drag PushTester to your Applications folder
+4. Right-click the app → **Open** (required for first launch)
+
 ### Build from Source
 
 1. Clone the repository:
@@ -28,12 +35,17 @@ A native macOS application for testing Apple Push Notification Service (APNs). E
    cd PushTester
    ```
 
-2. Open in Xcode:
+2. **Option A**: Open in Xcode
    ```bash
    open PushTester.xcodeproj
    ```
+   Then build and run (⌘R)
 
-3. Build and run (⌘R)
+3. **Option B**: Build DMG from command line
+   ```bash
+   ./scripts/build-dmg.sh
+   ```
+   The DMG will be created at `build/PushTester.dmg`
 
 ## Usage
 
