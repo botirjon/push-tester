@@ -1,3 +1,11 @@
+//
+//  ContentView.swift
+//  PushTester
+//
+//  Copyright (c) 2025 Botirjon Nasridinov
+//  Licensed under the MIT License. See LICENSE file for details.
+//
+
 import SwiftUI
 import UniformTypeIdentifiers
 
