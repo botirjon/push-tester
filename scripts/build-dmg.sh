@@ -2,7 +2,7 @@
 
 #
 # Build script for PushTester
-# Creates a DMG file for distribution (includes GUI app and CLI tool)
+# Creates release artifacts: DMG (app + CLI) and CLI tarball
 #
 
 set -e
@@ -10,12 +10,18 @@ set -e
 # Configuration
 APP_NAME="PushTester"
 CLI_NAME="pushtester"
+VERSION="${1:-1.0.0}"  # Pass version as argument, default to 1.0.0
 SCHEME="PushTester"
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="${PROJECT_DIR}/build"
 ARCHIVE_PATH="${BUILD_DIR}/${APP_NAME}.xcarchive"
 EXPORT_PATH="${BUILD_DIR}/export"
-DMG_PATH="${BUILD_DIR}/${APP_NAME}.dmg"
+DMG_PATH="${BUILD_DIR}/${APP_NAME}-${VERSION}.dmg"
+CLI_TARBALL="${BUILD_DIR}/${CLI_NAME}-${VERSION}.tar.gz"
+
+# Show version
+echo "🚀 Building PushTester v${VERSION}"
+echo ""
 
 # Clean previous build
 echo "🧹 Cleaning previous build..."
@@ -81,17 +87,29 @@ hdiutil create -volname "${APP_NAME}" \
 # Clean up temp directory
 rm -rf "${DMG_TEMP}"
 
+# Create CLI tarball for standalone distribution
+echo "📦 Creating CLI tarball..."
+if [ -f "${BUILD_DIR}/${CLI_NAME}" ]; then
+    tar -czvf "${CLI_TARBALL}" -C "${BUILD_DIR}" "${CLI_NAME}"
+    echo "✓ CLI tarball created: ${CLI_TARBALL}"
+fi
+
 echo ""
-echo "✅ Build complete!"
-echo "📍 DMG location: ${DMG_PATH}"
-echo "📍 CLI location: ${BUILD_DIR}/${CLI_NAME}"
+echo "═══════════════════════════════════════════════════════════"
+echo "✅ Build complete! Version: ${VERSION}"
+echo "═══════════════════════════════════════════════════════════"
 echo ""
-echo "To install the app:"
-echo "  1. Open the DMG"
-echo "  2. Drag ${APP_NAME} to Applications"
-echo "  3. Right-click the app → Open (first time only)"
+echo "📦 Release artifacts:"
+echo "   ${DMG_PATH}"
+echo "   ${CLI_TARBALL}"
 echo ""
-echo "To install the CLI:"
-echo "  sudo cp ${BUILD_DIR}/${CLI_NAME} /usr/local/bin/"
-echo "  # or"
-echo "  cp ${BUILD_DIR}/${CLI_NAME} ~/.local/bin/"
+echo "📋 For GitHub release, upload both files above."
+echo ""
+echo "🖥️  To install the app:"
+echo "   1. Open the DMG"
+echo "   2. Drag ${APP_NAME} to Applications"
+echo "   3. Right-click the app → Open (first time only)"
+echo ""
+echo "💻 To install the CLI:"
+echo "   tar -xzf ${CLI_TARBALL}"
+echo "   sudo mv ${CLI_NAME} /usr/local/bin/"
