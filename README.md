@@ -28,22 +28,33 @@ A native macOS application and CLI tool for testing Apple Push Notification Serv
 
 ## Installation
 
-### Download DMG (Recommended)
+### GUI App
 
-1. Download the latest DMG from [Releases](https://github.com/botirjon/PushTester/releases)
+1. Download `PushTester-x.x.x.dmg` from [Releases](https://github.com/botirjon/PushTester/releases)
 2. Open the DMG file
 3. Drag PushTester to your Applications folder
 4. Right-click the app → **Open** (required for first launch)
 
-### Install CLI
+### CLI Tool
+
+Download `pushtester-x.x.x.tar.gz` from [Releases](https://github.com/botirjon/PushTester/releases), then:
 
 ```bash
-# From DMG - copy the pushtester binary
+# Extract and install
+tar -xzf pushtester-*.tar.gz
+sudo mv pushtester /usr/local/bin/
+
+# Or install from DMG
 sudo cp /Volumes/PushTester/pushtester /usr/local/bin/
 
 # Or build from source
 swift build -c release
 sudo cp .build/release/pushtester /usr/local/bin/
+```
+
+Verify installation:
+```bash
+pushtester --version
 ```
 
 ### Build from Source
